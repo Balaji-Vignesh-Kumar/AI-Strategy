@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Strategy: The Builder's Guide Interactive Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAF9; /* Warm neutral background */
+            color: #1E293B; /* Dark slate text */
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 450px;
+            min-height: 300px;
+        }
+
+        .layer-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .layer-btn[data-active="true"] {
+            background-color: #1E293B;
+            color: #FAFAF9;
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #1E293B;
+        }
+
+        .layer-btn[data-active="false"]:hover {
+            background-color: #F1F5F9;
+            border-color: #94A3B8;
+        }
+
+        /* Custom scrollbar for inner content */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-amber-200 selection:text-slate-900">
+
+    <!-- Chosen Palette: Warm Neutrals & Slate. Background: #FAFAF9 (Stone 50). Text: #1E293B (Slate 800). Accents: #D97706 (Amber 600) for highlights. -->
+    
+    <!-- Application Structure Plan: The SPA is divided into three functional zones to transform a linear strategy document into an exploratory dashboard. 
+    1. Introduction & Paradigms: Sets the high-level thesis and defines the three stages of AI scaling using interactive flip/hover cards.
+    2. The Value Stack Explorer: The core interactive component. It replaces the long "Deep Dive" text sections with a visual, clickable 8-layer stack. Selecting a layer dynamically populates a highly structured, two-column detail panel detailing economics, moats, and imperatives. This non-linear design allows users to compare layers rapidly without scrolling.
+    3. Economic Distribution Analysis: Uses a dynamic bar chart to visualize the "Value Capture" percentages across the stack, making the abstract margin data immediately understandable. -->
+    
+    <!-- Visualization & Content Choices: 
+    - Paradigms (Inform): Flexbox cards with hover states. Simplifies text into digestible concepts.
+    - Value Stack (Organize/Explore): HTML/CSS stacked buttons mimicking the actual architectural stack. JS event listeners update the DOM to show details. Avoids SVG maps in favor of semantic, accessible HTML.
+    - Economic Distribution (Compare): Chart.js horizontal bar chart. Best for comparing percentages across categorical data (the 8 layers). Interactive tooltips provide exact values. NO SVG or Mermaid used. -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Canvas used for Chart.js. -->
+
+    <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-amber-600 text-2xl font-bold">&#9632;</span>
+                <h1 class="text-xl font-bold tracking-tight text-slate-900">AI Strategy: The Builder's Guide</h1>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#paradigms" class="hover:text-amber-600 transition-colors">Paradigms</a>
+                <a href="#stack-explorer" class="hover:text-amber-600 transition-colors">Stack Explorer</a>
+                <a href="#economics" class="hover:text-amber-600 transition-colors">Value Distribution</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
+
+        <section id="hero" class="text-center max-w-3xl mx-auto pt-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Value accrues to bottlenecks.</h2>
+            <p class="text-xl text-slate-600 leading-relaxed">
+                Margin exists where substitution is impossible. This interactive dashboard maps the AI economy, analyzing the physical constraints, capital flows, and strategic imperatives from silicon manufacturing up to the application layer.
+            </p>
+        </section>
+
+        <section id="paradigms" class="scroll-mt-24">
+            <div class="mb-10 text-center">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">The Three Paradigms of AI Scaling</h3>
+                <p class="text-slate-600 max-w-2xl mx-auto">AI scales in discrete jumps. Build for the end state rather than the current phase. This section outlines the evolution of artificial intelligence capabilities.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
+                    <div class="text-amber-600 text-3xl mb-4">&#9673;</div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Predictive AI</h4>
+                    <p class="text-slate-600 leading-relaxed">Recognizes established patterns. Optimizes existing workflows through data forecasting. Human limits still gate its overall execution.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
+                    <div class="text-amber-600 text-3xl mb-4">&#9678;</div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Generative AI</h4>
+                    <p class="text-slate-600 leading-relaxed">Creates novel patterns. Drops the marginal cost of content creation to zero. Operates as a read-only oracle requiring human prompting.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
+                    <div class="text-amber-600 text-3xl mb-4">&#9685;</div>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Agentic AI</h4>
+                    <p class="text-slate-600 leading-relaxed">Executes complex patterns. Acts as a read-write digital worker. Reasons, uses software tools, and achieves goals autonomously.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="stack-explorer" class="scroll-mt-24">
+            <div class="mb-10">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">The AI Value Stack Explorer</h3>
+                <p class="text-slate-600 max-w-3xl">This interactive model maps the AI economy. Lower layers require heavy capital and solve physical constraints. Upper layers require wide distribution and solve user experience problems. <strong>Select a layer below to analyze its strategic and economic profile.</strong></p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
+                
+                <div class="lg:col-span-4 flex flex-col justify-end space-y-2">
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 ml-2">Software & Interface</h4>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="8" data-active="false" onclick="app.selectLayer(8)">
+                        <span class="text-slate-400 mr-2">8.</span> Applications
+                    </button>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="7" data-active="false" onclick="app.selectLayer(7)">
+                        <span class="text-slate-400 mr-2">7.</span> Orchestration & Tooling
+                    </button>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="6" data-active="false" onclick="app.selectLayer(6)">
+                        <span class="text-slate-400 mr-2">6.</span> Foundation Models
+                    </button>
+                    
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 ml-2 mt-4 pt-4 border-t border-slate-100">Infrastructure & Data</h4>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="5" data-active="false" onclick="app.selectLayer(5)">
+                        <span class="text-slate-400 mr-2">5.</span> Data Infrastructure
+                    </button>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="4" data-active="false" onclick="app.selectLayer(4)">
+                        <span class="text-slate-400 mr-2">4.</span> Cloud Provisioning
+                    </button>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="3" data-active="false" onclick="app.selectLayer(3)">
+                        <span class="text-slate-400 mr-2">3.</span> Memory & Networking
+                    </button>
+
+                    <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 ml-2 mt-4 pt-4 border-t border-slate-100">Physical Hardware</h4>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="2" data-active="false" onclick="app.selectLayer(2)">
+                        <span class="text-slate-400 mr-2">2.</span> Silicon Architecture
+                    </button>
+                    <button class="layer-btn w-full text-left px-6 py-4 rounded-xl border-2 border-slate-200 font-semibold text-slate-700 bg-slate-50 relative" data-layer="1" data-active="true" onclick="app.selectLayer(1)">
+                        <span class="text-slate-400 mr-2">1.</span> Semiconductor Mfg.
+                    </button>
+                </div>
+
+                <div class="lg:col-span-8 bg-slate-50 rounded-2xl border border-slate-200 p-6 md:p-8 min-h-[600px] flex flex-col">
+                    <div id="detail-header" class="mb-6 border-b border-slate-200 pb-6">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span id="detail-number" class="bg-slate-200 text-slate-700 px-3 py-1 rounded-md font-mono font-bold text-sm">Layer 1</span>
+                            <h3 id="detail-title" class="text-2xl font-bold text-slate-900">Semiconductor Manufacturing</h3>
+                        </div>
+                        <p id="detail-role" class="text-lg text-amber-700 font-medium">The Atomic Constraint. Prints silicon blueprints using extreme lithography.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase mb-1">Dominant Players</p>
+                            <p id="detail-players" class="font-semibold text-slate-800">TSMC, ASML, Samsung Foundry</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase mb-1">Value Capture</p>
+                            <p id="detail-margin" class="font-bold text-2xl text-slate-900">~15%</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-400 uppercase mb-1">Key Metrics</p>
+                            <p id="detail-metrics" class="font-medium text-sm text-slate-700">Node size (nm), Wafer yield (%)</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="flex items-center gap-2 text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">
+                                    <span class="text-emerald-600">&#9650;</span> Revenue Drivers
+                                </h4>
+                                <ul id="detail-revenue" class="space-y-2 text-sm text-slate-600">
+                                    <li>&#8226; Processed silicon wafer sales</li>
+                                    <li>&#8226; Advanced node pricing premiums</li>
+                                    <li>&#8226; Packaging attach rates (CoWoS)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="flex items-center gap-2 text-lg font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">
+                                    <span class="text-rose-600">&#9660;</span> Cost Drivers
+                                </h4>
+                                <ul id="detail-cost" class="space-y-2 text-sm text-slate-600">
+                                    <li>&#8226; Multi-billion dollar fab construction</li>
+                                    <li>&#8226; $300M+ EUV lithography machines</li>
+                                    <li>&#8226; Sub-nanometer node R&D</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-2">Moats & Defensibility</h4>
+                                <p id="detail-moat" class="text-sm text-slate-600 leading-relaxed">Capital requirements exceed $50 billion annually, allowing incumbents to make substitution economically impossible for fabless designers. ASML holds exclusive patents on extreme ultraviolet technology. Competitors cannot replicate this physical supply chain quickly or cheaply.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900 mb-2">Vulnerabilities & Bottlenecks</h4>
+                                <p id="detail-vuln" class="text-sm text-slate-600 leading-relaxed">Geopolitical concentration in Taiwan creates a single point of global failure. Natural disasters constantly threaten these highly sensitive fabrication plants.</p>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl mt-4">
+                                <h4 class="text-sm font-bold text-amber-900 mb-1">Strategic Imperative Example</h4>
+                                <p id="detail-imperative" class="text-sm text-amber-800"><strong>TSMC:</strong> Maintain a structural lead in advanced nodes and CoWoS packaging to secure monopoly margins.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="economics" class="scroll-mt-24 pb-20">
+            <div class="mb-10 text-center">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">Economic Value Distribution</h3>
+                <p class="text-slate-600 max-w-2xl mx-auto">This chart visualizes the estimated percentage of total ecosystem value captured by each layer of the stack. Notice the heavy concentrations at the physical constraints (Silicon) and foundational software layers.</p>
+            </div>
+            
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200">
+                <div class="chart-container">
+                    <canvas id="valueCaptureChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+        <p>Interactive Analysis based on "AI Strategy: The Builder's Guide"</p>
+    </footer>
+
+    <script>
+        const appData = {
+            1: {
+                title: "Semiconductor Manufacturing",
+                role: "The Atomic Constraint. Prints silicon blueprints using extreme lithography.",
+                players: "TSMC, ASML, Samsung Foundry",
+                margin: "~15%",
+                metrics: "Node size (nm), Wafer yield (%)",
+                revenue: ["Processed silicon wafer sales", "Advanced node pricing premiums", "Packaging attach rates (CoWoS)"],
+                cost: ["Multi-billion dollar fab construction", "$300M+ EUV lithography machines", "Sub-nanometer node R&D"],
+                moat: "Capital requirements exceed $50 billion annually, allowing incumbents to make substitution economically impossible for fabless designers. ASML holds exclusive patents on extreme ultraviolet technology. Competitors cannot replicate this physical supply chain quickly or cheaply.",
+                vuln: "Geopolitical concentration in Taiwan creates a single point of global failure. Natural disasters constantly threaten these highly sensitive fabrication plants.",
+                imperative: "<strong>TSMC:</strong> Maintain a structural lead in advanced nodes and CoWoS packaging to secure monopoly margins."
+            },
+            2: {
+                title: "Silicon Architecture",
+                role: "Compute Design. Architects the parallel processing units.",
+                players: "Nvidia, AMD, Google",
+                margin: "~25%",
+                metrics: "FLOPS per watt, Total Cost of Ownership (TCO)",
+                revenue: ["Hardware unit sales (GPUs/TPUs)", "Rack-scale system integration", "Proprietary software licensing"],
+                cost: ["Chip architecture R&D", "Foundry tape-out fees", "Software ecosystem engineering"],
+                moat: "Nvidia's CUDA software platform creates strict developer lock-in because companies refuse to rewrite functional codebases. Additionally, chip design requires billions in upfront capital to even enter the market.",
+                vuln: "Software abstraction threatens hardware margins. Open-source compilers like OpenAI Triton aim to make the underlying silicon interchangeable.",
+                imperative: "<strong>Nvidia:</strong> Transition from selling individual chips to selling entire data center networking architectures to secure absolute market dominance."
+            },
+            3: {
+                title: "Memory & Networking",
+                role: "The Throughput Constraint. Links data clusters and feeds information directly to GPUs.",
+                players: "SK Hynix, Samsung, Broadcom",
+                margin: "~10%",
+                metrics: "Memory bandwidth (GB/s), Interconnect throughput (Tbps)",
+                revenue: ["Memory stack volume (HBM)", "Generational bandwidth premiums", "Optical interconnect port sales"],
+                cost: ["Specialized memory packaging lines", "Optical component manufacturing", "Initial yield defect losses"],
+                moat: "High Bandwidth Memory requires patented silicon stacking techniques and massive technical leads to manufacture at scale. Furthermore, Nvidia protects its server racks with proprietary NVLink networking protocols.",
+                vuln: "Limited High Bandwidth Memory production strictly caps global GPU output. Data center power grids cannot support infinite bandwidth scaling.",
+                imperative: "<strong>SK Hynix:</strong> Leverage existing technical leads to secure high-volume, long-term HBM contracts with Nvidia."
+            },
+            4: {
+                title: "Cloud Provisioning",
+                role: "Capital Abstraction. Provides elastic, on-demand access to compute infrastructure.",
+                players: "AWS, Microsoft Azure, Google Cloud",
+                margin: "~15%",
+                metrics: "CapEx scale, GPU utilization, Cluster availability",
+                revenue: ["On-demand compute consumption", "Multi-year reserved capacity contracts", "Ancillary storage and egress fees"],
+                cost: ["Mass procurement of GPUs", "Gigawatt-scale power contracts", "Industrial data center cooling"],
+                moat: "Building a frontier data center requires billions of dollars and years of lead time for power permits. Massive purchasing scale allows incumbents to negotiate preferential hardware pricing from Nvidia.",
+                vuln: "Energy grid constraints severely limit new data center construction. Supply chain delays for electrical transformers and cooling systems continually bottleneck deployment.",
+                imperative: "<strong>Microsoft Azure:</strong> Leverage exclusive OpenAI partnerships to drive enterprise adoption of proprietary cloud services and infrastructure."
+            },
+            5: {
+                title: "Data Infrastructure",
+                role: "The Refinery. Curates, labels, and vectorizes data while managing RLHF pipelines.",
+                players: "Scale AI, Databricks, Pinecone",
+                margin: "~5%",
+                metrics: "Cost per high-fidelity token, RLHF throughput",
+                revenue: ["Vector storage and query volume", "Human-in-the-loop task throughput", "Enterprise platform SaaS licensing"],
+                cost: ["Human expert labor networks", "Compute for data vectorization", "Proprietary data licensing"],
+                moat: "Databricks benefits from extreme enterprise lock-in because migrating vast data lakes costs too much. Scale AI maintains a massive, vetted global network of human experts with security clearances.",
+                vuln: "Human labor physically limits scaling speed. High-quality human text on the public internet is effectively exhausted.",
+                imperative: "<strong>Scale AI:</strong> Dominate the human-in-the-loop market and transition heavily into synthetic data generation to bypass human labor constraints."
+            },
+            6: {
+                title: "Foundation Models",
+                role: "The Cognitive Engine. Translates raw data into reasoning and generation capabilities.",
+                players: "OpenAI, Anthropic, Google DeepMind",
+                margin: "~15%",
+                metrics: "ELO benchmarks, Inference cost (Tokens/$), Context length",
+                revenue: ["API token inference volume", "Recurring consumer subscriptions", "Dedicated enterprise model hosting"],
+                cost: ["Massive pre-training compute clusters", "Elite AI research talent", "Continuous RLHF post-training"],
+                moat: "Frontier model training requires billions of dollars in capital expenditure and elite AI research talent. Strong brands like ChatGPT command immense consumer loyalty and default enterprise distribution.",
+                vuln: "Open-source models constantly erode proprietary pricing power. The global supply of high-quality human training data is rapidly running out.",
+                imperative: "<strong>OpenAI:</strong> Maintain the absolute performance lead to justify premium API pricing and secure exclusive enterprise distribution via Microsoft."
+            },
+            7: {
+                title: "Orchestration & Tooling",
+                role: "The Scaffolding. Routes agents and manages model memory.",
+                players: "LangChain, Hugging Face, Vercel",
+                margin: "~5%",
+                metrics: "Developer adoption, API latency",
+                revenue: ["Managed infrastructure deployments", "Enterprise SLA support contracts", "API gateway routing fees"],
+                cost: ["Open-source framework maintenance", "Developer relations and marketing", "API routing infrastructure"],
+                moat: "Open-source ubiquity creates strong community lock-in. Developers refuse to learn entirely new orchestration syntaxes once trained on a specific framework.",
+                vuln: "Foundation models constantly absorb orchestration features natively. Native tool-calling updates from frontier labs instantly commoditize basic routing frameworks.",
+                imperative: "<strong>LangChain:</strong> Secure the open-source developer ecosystem to remain the default operating system for building complex agentic workflows."
+            },
+            8: {
+                title: "Applications",
+                role: "The Interface. Packages models into workflows to solve specific user problems.",
+                players: "ChatGPT, GitHub Copilot, Anthropic",
+                margin: "~10%",
+                metrics: "Net Revenue Retention (NRR), DAU/MAU",
+                revenue: ["Consumer recurring subscriptions", "Enterprise per-seat licensing", "Outcome-based transaction fees"],
+                cost: ["Foundation model API inference fees", "Customer acquisition costs (CAC)", "Traditional application hosting"],
+                moat: "Deep integration into existing enterprise workflows creates massive switching costs. Proprietary data loops allow first-movers to build specialized models that generic foundation models cannot match.",
+                vuln: "Thin wrappers around foundation models face total commoditization. Whenever frontier labs drop API prices or release native features, hundreds of application startups instantly die.",
+                imperative: "<strong>ChatGPT:</strong> Transition from a generalized chatbot into a universal operating system for both consumer and enterprise knowledge work."
+            }
+        };
+
+        const app = {
+            init() {
+                this.initChart();
+                // Layer 1 is loaded by default in HTML, ensuring script syncs active state
+            },
+            
+            selectLayer(layerId) {
+                const data = appData[layerId];
+                if (!data) return;
+
+                // Update Buttons
+                document.querySelectorAll('.layer-btn').forEach(btn => {
+                    btn.setAttribute('data-active', btn.getAttribute('data-layer') == layerId);
+                });
+
+                // Update Content
+                document.getElementById('detail-number').innerText = `Layer ${layerId}`;
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-role').innerText = data.role;
+                document.getElementById('detail-players').innerText = data.players;
+                document.getElementById('detail-margin').innerText = data.margin;
+                document.getElementById('detail-metrics').innerText = data.metrics;
+                
+                document.getElementById('detail-revenue').innerHTML = data.revenue.map(item => `<li>&#8226; ${item}</li>`).join('');
+                document.getElementById('detail-cost').innerHTML = data.cost.map(item => `<li>&#8226; ${item}</li>`).join('');
+                
+                document.getElementById('detail-moat').innerText = data.moat;
+                document.getElementById('detail-vuln').innerText = data.vuln;
+                document.getElementById('detail-imperative').innerHTML = data.imperative;
+            },
+
+            initChart() {
+                const ctx = document.getElementById('valueCaptureChart').getContext('2d');
+                
+                // Colors mapping to layers: bottom-to-top theme
+                const colors = [
+                    '#CBD5E1', // 8 App
+                    '#94A3B8', // 7 Orch
+                    '#D97706', // 6 Found (Highlight)
+                    '#64748B', // 5 Data
+                    '#475569', // 4 Cloud
+                    '#334155', // 3 Memory
+                    '#F59E0B', // 2 Silicon (Highlight)
+                    '#0F172A'  // 1 Semi
+                ];
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            '8. Applications', 
+                            '7. Orchestration', 
+                            '6. Foundation Models', 
+                            '5. Data Infrastructure', 
+                            '4. Cloud Provisioning', 
+                            '3. Memory & Networking', 
+                            '2. Silicon Architecture', 
+                            '1. Semiconductor Mfg.'
+                        ],
+                        datasets: [{
+                            label: 'Estimated Value Capture (%)',
+                            data: [10, 5, 15, 5, 15, 10, 25, 15],
+                            backgroundColor: colors,
+                            borderRadius: 4,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y', // Horizontal bar chart
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.raw + '% Margin/Value Capture';
+                                    }
+                                },
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                padding: 12,
+                                titleFont: { family: 'Inter', size: 14 },
+                                bodyFont: { family: 'Inter', size: 14 }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 30,
+                                grid: { color: '#E2E8F0' },
+                                ticks: {
+                                    font: { family: 'Inter' },
+                                    color: '#64748B',
+                                    callback: function(value) { return value + "%" }
+                                }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: 'Inter', weight: '500' },
+                                    color: '#1E293B'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+</html>
