@@ -10,8 +10,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FAFAF9; /* Warm neutral background */
-            color: #1E293B; /* Dark slate text */
+            background-color: #FAFAF9;
+            color: #1E293B;
         }
         
         .chart-container {
@@ -37,12 +37,11 @@
             border-color: #1E293B;
         }
 
-        .layer-btn[data-active="false"]:hover {
+        .layer-btn[data-active="false":hover {
             background-color: #F1F5F9;
             border-color: #94A3B8;
         }
 
-        /* Custom scrollbar for inner content */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -60,20 +59,6 @@
 </head>
 <body class="antialiased overflow-x-hidden selection:bg-amber-200 selection:text-slate-900">
 
-    <!-- Chosen Palette: Warm Neutrals & Slate. Background: #FAFAF9 (Stone 50). Text: #1E293B (Slate 800). Accents: #D97706 (Amber 600) for highlights. -->
-    
-    <!-- Application Structure Plan: The SPA is divided into three functional zones to transform a linear strategy document into an exploratory dashboard. 
-    1. Introduction & Paradigms: Sets the high-level thesis and defines the three stages of AI scaling using interactive flip/hover cards.
-    2. The Value Stack Explorer: The core interactive component. It replaces the long "Deep Dive" text sections with a visual, clickable 8-layer stack. Selecting a layer dynamically populates a highly structured, two-column detail panel detailing economics, moats, and imperatives. This non-linear design allows users to compare layers rapidly without scrolling.
-    3. Economic Distribution Analysis: Uses a dynamic bar chart to visualize the "Value Capture" percentages across the stack, making the abstract margin data immediately understandable. -->
-    
-    <!-- Visualization & Content Choices: 
-    - Paradigms (Inform): Flexbox cards with hover states. Simplifies text into digestible concepts.
-    - Value Stack (Organize/Explore): HTML/CSS stacked buttons mimicking the actual architectural stack. JS event listeners update the DOM to show details. Avoids SVG maps in favor of semantic, accessible HTML.
-    - Economic Distribution (Compare): Chart.js horizontal bar chart. Best for comparing percentages across categorical data (the 8 layers). Interactive tooltips provide exact values. NO SVG or Mermaid used. -->
-    
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Canvas used for Chart.js. -->
-
     <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -81,46 +66,12 @@
                 <h1 class="text-xl font-bold tracking-tight text-slate-900">AI Strategy: The Builder's Guide</h1>
             </div>
             <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
-                <a href="#paradigms" class="hover:text-amber-600 transition-colors">Paradigms</a>
                 <a href="#stack-explorer" class="hover:text-amber-600 transition-colors">Stack Explorer</a>
-                <a href="#economics" class="hover:text-amber-600 transition-colors">Value Distribution</a>
             </nav>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
-
-        <section id="hero" class="text-center max-w-3xl mx-auto pt-10">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">Value accrues to bottlenecks.</h2>
-            <p class="text-xl text-slate-600 leading-relaxed">
-                Margin exists where substitution is impossible. This interactive dashboard maps the AI economy, analyzing the physical constraints, capital flows, and strategic imperatives from silicon manufacturing up to the application layer.
-            </p>
-        </section>
-
-        <section id="paradigms" class="scroll-mt-24">
-            <div class="mb-10 text-center">
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">The Three Paradigms of AI Scaling</h3>
-                <p class="text-slate-600 max-w-2xl mx-auto">AI scales in discrete jumps. Build for the end state rather than the current phase. This section outlines the evolution of artificial intelligence capabilities.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
-                    <div class="text-amber-600 text-3xl mb-4">&#9673;</div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Predictive AI</h4>
-                    <p class="text-slate-600 leading-relaxed">Recognizes established patterns. Optimizes existing workflows through data forecasting. Human limits still gate its overall execution.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
-                    <div class="text-amber-600 text-3xl mb-4">&#9678;</div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Generative AI</h4>
-                    <p class="text-slate-600 leading-relaxed">Creates novel patterns. Drops the marginal cost of content creation to zero. Operates as a read-only oracle requiring human prompting.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all">
-                    <div class="text-amber-600 text-3xl mb-4">&#9685;</div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Agentic AI</h4>
-                    <p class="text-slate-600 leading-relaxed">Executes complex patterns. Acts as a read-write digital worker. Reasons, uses software tools, and achieves goals autonomously.</p>
-                </div>
-            </div>
-        </section>
 
         <section id="stack-explorer" class="scroll-mt-24">
             <div class="mb-10">
@@ -225,19 +176,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="economics" class="scroll-mt-24 pb-20">
-            <div class="mb-10 text-center">
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">Economic Value Distribution</h3>
-                <p class="text-slate-600 max-w-2xl mx-auto">This chart visualizes the estimated percentage of total ecosystem value captured by each layer of the stack. Notice the heavy concentrations at the physical constraints (Silicon) and foundational software layers.</p>
-            </div>
-            
-            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200">
-                <div class="chart-container">
-                    <canvas id="valueCaptureChart"></canvas>
                 </div>
             </div>
         </section>
@@ -350,7 +288,6 @@
 
         const app = {
             init() {
-                this.initChart();
                 // Layer 1 is loaded by default in HTML, ensuring script syncs active state
             },
             
@@ -377,85 +314,6 @@
                 document.getElementById('detail-moat').innerText = data.moat;
                 document.getElementById('detail-vuln').innerText = data.vuln;
                 document.getElementById('detail-imperative').innerHTML = data.imperative;
-            },
-
-            initChart() {
-                const ctx = document.getElementById('valueCaptureChart').getContext('2d');
-                
-                // Colors mapping to layers: bottom-to-top theme
-                const colors = [
-                    '#CBD5E1', // 8 App
-                    '#94A3B8', // 7 Orch
-                    '#D97706', // 6 Found (Highlight)
-                    '#64748B', // 5 Data
-                    '#475569', // 4 Cloud
-                    '#334155', // 3 Memory
-                    '#F59E0B', // 2 Silicon (Highlight)
-                    '#0F172A'  // 1 Semi
-                ];
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: [
-                            '8. Applications', 
-                            '7. Orchestration', 
-                            '6. Foundation Models', 
-                            '5. Data Infrastructure', 
-                            '4. Cloud Provisioning', 
-                            '3. Memory & Networking', 
-                            '2. Silicon Architecture', 
-                            '1. Semiconductor Mfg.'
-                        ],
-                        datasets: [{
-                            label: 'Estimated Value Capture (%)',
-                            data: [10, 5, 15, 5, 15, 10, 25, 15],
-                            backgroundColor: colors,
-                            borderRadius: 4,
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        indexAxis: 'y', // Horizontal bar chart
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return context.raw + '% Margin/Value Capture';
-                                    }
-                                },
-                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                                padding: 12,
-                                titleFont: { family: 'Inter', size: 14 },
-                                bodyFont: { family: 'Inter', size: 14 }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                max: 30,
-                                grid: { color: '#E2E8F0' },
-                                ticks: {
-                                    font: { family: 'Inter' },
-                                    color: '#64748B',
-                                    callback: function(value) { return value + "%" }
-                                }
-                            },
-                            y: {
-                                grid: { display: false },
-                                ticks: {
-                                    font: { family: 'Inter', weight: '500' },
-                                    color: '#1E293B'
-                                }
-                            }
-                        }
-                    }
-                });
             }
         };
 
